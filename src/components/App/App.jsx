@@ -51,22 +51,21 @@ export class App extends Component {
   };
 
   componentDidMount() {
-    console.log('App component DidMount')
+    console.log('App component DidMount');
     const contacts = localStorage.getItem('contacts');
-    const parseContacts = JSON.parse(contacts)
-    if(parseContacts) {
-      this.setState({ contacts: parseContacts })
+    const parseContacts = JSON.parse(contacts);
+    if (parseContacts) {
+      this.setState({ contacts: parseContacts });
     }
     //console.log(parseContacts)
-    
   }
   componentDidUpdate(prevProps, prevState) {
-    console.log('App component DidUpdate')
-    if(this.state.contacts !== prevState.contacts) {
-      console.log('Оновились контакти, записуємо їх до сховища')
-      localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+    console.log('App component DidUpdate');
+    if (this.state.contacts !== prevState.contacts) {
+      console.log('Оновились контакти, записуємо їх до сховища');
+      localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
-    
+
     //console.log(prevState)
     //console.log(this.state)
   }
@@ -89,4 +88,3 @@ export class App extends Component {
     );
   }
 }
-

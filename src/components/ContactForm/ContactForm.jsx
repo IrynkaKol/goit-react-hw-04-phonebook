@@ -1,10 +1,38 @@
-import React, { Component } from 'react';
+import {useState} from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
 import * as yup from 'yup';
 import { FormStyled, Label, Input, Button } from './ContactForm.styled';
 
-class ContactForm extends Component {
+function ContactForm () {
+  return (
+    <Formik
+      initialValues={{
+        name: '',
+        number: '',
+      }}
+      validationSchema={schema}
+      onSubmit={this.hendleSubmit}
+    >
+      <FormStyled>
+        <Label htmlFor="name">
+          Name
+          <Input type="text" name="name" placeholder="Name" />
+          <ErrorMessage component="div" name="name" />
+        </Label>
+        <Label htmlFor="number">
+          Number
+          <Input type="tel" name="number" placeholder="Number" />
+          <ErrorMessage component="div" name="number" />
+        </Label>
+        <Button type="submit">Add contact</Button>
+      </FormStyled>
+    </Formik>
+  );
+
+}
+
+class OldContactForm extends Component {
   hendleSubmit = (contact, { resetForm }) => {
     this.props.onSubmit(contact);
     resetForm();
