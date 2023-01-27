@@ -59,16 +59,14 @@ export class App extends Component {
     }
     //console.log(parseContacts)
   }
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(_, prevState) {
     console.log('App component DidUpdate');
     if (this.state.contacts !== prevState.contacts) {
       console.log('Оновились контакти, записуємо їх до сховища');
       localStorage.setItem('contacts', JSON.stringify(this.state.contacts));
     }
-
-    //console.log(prevState)
-    //console.log(this.state)
-  }
+    }
+    
 
   render() {
     const visibleContacts = this.getVisibleContacts();

@@ -5,14 +5,24 @@ import * as yup from 'yup';
 import { FormStyled, Label, Input, Button } from './ContactForm.styled';
 
 function ContactForm () {
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+
+  const hendleSubmit = (contact, { resetForm }) => {
+    this.props.onSubmit(contact);
+    resetForm();
+  };
+
+
+  const schema = yup.object().shape({
+    name: yup.string().required(),
+    number: yup.string().min(6).max(16).required(),
+  });
   return (
     <Formik
-      initialValues={{
-        name: '',
-        number: '',
-      }}
+       
       validationSchema={schema}
-      onSubmit={this.hendleSubmit}
+      onSubmit={hendleSubmit}
     >
       <FormStyled>
         <Label htmlFor="name">
@@ -29,10 +39,15 @@ function ContactForm () {
       </FormStyled>
     </Formik>
   );
-
 }
 
+/*
 class OldContactForm extends Component {
+state = {
+  name: '',
+  number: '',
+}
+
   hendleSubmit = (contact, { resetForm }) => {
     this.props.onSubmit(contact);
     resetForm();
@@ -46,10 +61,7 @@ class OldContactForm extends Component {
 
     return (
       <Formik
-        initialValues={{
-          name: '',
-          number: '',
-        }}
+         
         validationSchema={schema}
         onSubmit={this.hendleSubmit}
       >
@@ -70,7 +82,7 @@ class OldContactForm extends Component {
     );
   }
 }
-
+*/
 export default ContactForm;
 
 ContactForm.propTypes = {
