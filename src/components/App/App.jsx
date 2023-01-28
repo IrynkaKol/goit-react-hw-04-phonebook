@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { nanoid } from 'nanoid';
+//import { nanoid } from 'nanoid';
 import { Container } from './App.styled';
 import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
@@ -11,9 +11,9 @@ export function App() {
   const [filter, setFilter] = useState('');
 
   const formSubmitHandler = e => {
-    const id = nanoid();
+    //const id = nanoid();
     const name = e.name;
-    const number = e.number;
+    //const number = e.number;
     
     if (
       !contacts.find(contact => name.toLowerCase() === name.toLowerCase())
