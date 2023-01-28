@@ -1,5 +1,5 @@
 import { useState } from 'react';
-//import { nanoid } from 'nanoid';
+import { nanoid } from 'nanoid';
 import { Container } from './App.styled';
 import ContactForm from '../ContactForm/ContactForm';
 import ContactList from '../ContactList/ContactList';
@@ -10,15 +10,18 @@ export function App() {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const formSubmitHandler = e => {
-    //const id = nanoid();
-    const name = e.name;
-    //const number = e.number;
+  const formSubmitHandler = (name,  number) => {
     
+    //const id = nanoid();
+    //const name = data.name;
+    //const number = data.number;
+
     if (
-      !contacts.find(contact => name.toLowerCase() === name.toLowerCase())
+      !contacts.find(
+        ({ name }) => name.toLowerCase() === contacts.name.toLowerCase()
+      )
     ) {
-      setContacts([...contacts]);
+      setContacts(prevState => [{id: nanoid(), name,  number}, ...prevState]);
     } else {
       alert(`${name} is already in contacts.`);
     }
@@ -29,9 +32,9 @@ export function App() {
   };
 
   const deleteContacts = e => {
-    setContacts(prevState => ({
-      contacts: prevState.contacts.filter(contact => contact.id !== e),
-    }));
+    setContacts(prevState => 
+      prevState.contacts.filter(contact => contact.id !== e),
+    );
   };
 
   const getVisibleContacts = () => {
