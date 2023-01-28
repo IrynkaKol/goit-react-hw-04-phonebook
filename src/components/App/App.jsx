@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { nanoid } from 'nanoid';
 import { Container } from './App.styled';
 import ContactForm from '../ContactForm/ContactForm';
@@ -10,18 +10,13 @@ export function App() {
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState('');
 
-  const formSubmitHandler = (name,  number) => {
-    
-    //const id = nanoid();
-    //const name = data.name;
-    //const number = data.number;
-
+  const formSubmitHandler = (name, number) => {
     if (
       !contacts.find(
         ({ name }) => name.toLowerCase() === contacts.name.toLowerCase()
       )
     ) {
-      setContacts(prevState => [{id: nanoid(), name,  number}, ...prevState]);
+      setContacts(prevState => [{ id: nanoid(), name, number }, ...prevState]);
     } else {
       alert(`${name} is already in contacts.`);
     }
@@ -32,10 +27,22 @@ export function App() {
   };
 
   const deleteContacts = e => {
-    setContacts(prevState => 
-      prevState.contacts.filter(contact => contact.id !== e),
+    setContacts(prevState =>
+      prevState.contacts.filter(contact => contact.id !== e)
     );
   };
+
+  useEffect(() => {
+    const contacts = localStorage.getItem('contacts');
+    const parseContacts = JSON.parse(contacts);
+    if (parseContacts) {
+      setContacts(parseContacts);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('contacts', JSON.stringify(contacts));
+  }, [contacts]);
 
   const getVisibleContacts = () => {
     const normalizedFilter = filter.toLowerCase();
@@ -44,7 +51,7 @@ export function App() {
     );
   };
 
-  const visibleContacts = getVisibleContacts();
+  //const visibleContacts = getVisibleContacts();
   return (
     <Container>
       <Section title="Phonebook">
@@ -53,7 +60,7 @@ export function App() {
       <Section title="Contacts">
         <Filter value={filter} onChange={changeFilter} />
         <ContactList
-          contacts={visibleContacts}
+          contacts={getVisibleContacts()}
           onDeleteContacts={deleteContacts}
         />
       </Section>
