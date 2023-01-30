@@ -1,24 +1,26 @@
 import React from 'react';
 import { Formik, ErrorMessage } from 'formik';
 import PropTypes from 'prop-types';
-//import * as yup from 'yup';
+import * as yup from 'yup';
 import { FormStyled, Label, Input, Button } from './ContactForm.styled';
 
-
-
-const ContactForm = () => {
-  /*const schema = yup.object().shape({
+const ContactForm = ({ onSubmit }) => {
+  const schema = yup.object().shape({
     name: yup.string().required(),
     number: yup.string().min(6).max(16).required(),
-  });*/
+  });
 
   const handleSubmit = (contact, { resetForm }) => {
-    console.log(contact);
+    onSubmit(contact);
     resetForm();
   };
 
   return (
-    <Formik /*validationSchema={schema}*/ onSubmit={handleSubmit}>
+    <Formik
+      initialValues={{ name: '', number: '' }}
+      validationSchema={schema}
+      onSubmit={handleSubmit}
+    >
       <FormStyled>
         <Label htmlFor="name">
           Name

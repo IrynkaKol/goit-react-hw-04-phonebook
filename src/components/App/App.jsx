@@ -7,13 +7,15 @@ import Filter from '../Filter/Filter';
 import Section from '../Section/Section';
 
 export function App() {
-  const [contacts, setContacts] = useState([]);
+  const [contacts, setContacts] = useState(
+    () => JSON.parse(localStorage.getItem('contacts')) ?? []
+    );
   const [filter, setFilter] = useState('');
 
   const formSubmitHandler = (name, number) => {
     if (
       !contacts.find(
-        ({ name }) => name.toLowerCase() === contacts.name.toLowerCase()
+        contact => contact.name.toLowerCase() === name.toLowerCase()
       )
     ) {
       setContacts(prevState => [{ id: nanoid(), name, number }, ...prevState]);
