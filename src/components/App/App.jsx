@@ -6,13 +6,14 @@ import ContactList from '../ContactList/ContactList';
 import Filter from '../Filter/Filter';
 import Section from '../Section/Section';
 
+
 export function App() {
   const [contacts, setContacts] = useState(
     () => JSON.parse(localStorage.getItem('contacts')) ?? []
-    );
+  );
   const [filter, setFilter] = useState('');
 
-  const formSubmitHandler = (name, number) => {
+  const formSubmitHandler = ({ name, number }) => {
     if (
       !contacts.find(
         contact => contact.name.toLowerCase() === name.toLowerCase()
@@ -20,7 +21,7 @@ export function App() {
     ) {
       setContacts(prevState => [{ id: nanoid(), name, number }, ...prevState]);
     } else {
-      alert(`${contacts.name} is already in contacts.`);
+      alert(`${name} is already in contacts.`);
     }
   };
 
@@ -69,6 +70,7 @@ export function App() {
     </Container>
   );
 }
+
 
 /*
 export class OldApp extends Component {
