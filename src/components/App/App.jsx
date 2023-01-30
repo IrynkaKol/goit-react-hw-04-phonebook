@@ -18,12 +18,12 @@ export function App() {
     ) {
       setContacts(prevState => [{ id: nanoid(), name, number }, ...prevState]);
     } else {
-      alert(`${name} is already in contacts.`);
+      alert(`${contacts.name} is already in contacts.`);
     }
   };
 
   const changeFilter = e => {
-    setFilter({ filter: e.currentTarget.value });
+    setFilter(e.currentTarget.value);
   };
 
   const deleteContacts = e => {
@@ -51,7 +51,7 @@ export function App() {
     );
   };
 
-  //const visibleContacts = getVisibleContacts();
+  const visibleContacts = getVisibleContacts();
   return (
     <Container>
       <Section title="Phonebook">
@@ -60,7 +60,7 @@ export function App() {
       <Section title="Contacts">
         <Filter value={filter} onChange={changeFilter} />
         <ContactList
-          contacts={getVisibleContacts()}
+          contacts={visibleContacts}
           onDeleteContacts={deleteContacts}
         />
       </Section>
